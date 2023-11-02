@@ -12,9 +12,16 @@ const enhancer = composeEnhancers(applyMiddleware(thunk));
 const store = createStore(reducer, enhancer);
 
 const getSingleUser = async () => {
-  const user = await axiosClient.get(`/user/${localStorage.getItem("userId")}`);
-  console.log(user.data.user);
-  store.dispatch({ type: "LOGIN", payload: user.data.user });
+  try {
+    const user = await axiosClient.get(
+      `/user/${localStorage.getItem("userId")}`
+    );
+    console.log(user.data.user);
+    store.dispatch({ type: "LOGIN", payload: user.data.user });
+  } catch (error) {
+    localStorage.removeItem("userId");
+    // console.error("Error fetching single user:", error);
+  }
 };
 
 if (localStorage.getItem("userId")) {

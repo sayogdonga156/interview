@@ -35,10 +35,11 @@ const Login = () => {
   }, [dispatch, error, isAuth]);
 
   const id = localStorage.getItem("userId");
+  console.log(id,"id")
 
   return (
     <>
-      {id ? (
+      {isAuth ? (
         <></>
       ) : (
         <Formik
@@ -141,7 +142,7 @@ const Login = () => {
             </div>
           )}
         </Formik>
-      )}
+       )}
     </>
   );
 };
